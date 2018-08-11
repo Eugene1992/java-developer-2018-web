@@ -2,3 +2,9 @@ language: java
 jdk: oraclejdk8
 sudo: false
 script: mvn test
+notifications:
+  email:
+    recipients:
+      - deyneko55@gmsil.com
+    on_success: always
+    on_failure: always
