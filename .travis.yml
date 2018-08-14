@@ -8,3 +8,5 @@ notifications:
       - deyneko55@gmsil.com
     on_success: always
     on_failure: always
+notifications:
+  slack: cbs-java:uZrfodvcQ0j2v9bcAncj3NNU
