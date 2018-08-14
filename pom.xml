@@ -11,6 +11,7 @@
     <modules>
         <module>servlets</module>
         <module>sasha</module>
+        <module>bohdan</module>
     </modules>
 
     <dependencies>
