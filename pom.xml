@@ -12,6 +12,7 @@
         <module>servlets</module>
         <module>sasha</module>
         <module>bohdan</module>
+        <module>stepan</module>
     </modules>
 
     <dependencies>
