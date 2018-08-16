@@ -30,6 +30,11 @@
             <version>1.16.20</version>
             <scope>provided</scope>
         </dependency>
+        <!--<dependency>
+            <groupId>com.cbs.edu</groupId>
+            <artifactId>bohdan</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>-->
         <dependency>
             <groupId>postgresql</groupId>
             <artifactId>postgresql</artifactId>
