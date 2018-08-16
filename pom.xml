@@ -13,6 +13,7 @@
         <module>sasha</module>
         <module>bohdan</module>
         <module>stepan</module>
+        <module>slavik_bv</module>
     </modules>
 
     <dependencies>
