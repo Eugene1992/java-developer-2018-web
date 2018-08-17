@@ -12,13 +12,13 @@
     </description>
 
     <servlet>
-        <servlet-name>EmployeeServlet</servlet-name>
-        <servlet-class>com.cbs.edu.servlets.EmployeeServlet</servlet-class>
+        <servlet-name>HelloServlet</servlet-name>
+        <servlet-class>servlet.HelloWorldServlet</servlet-class>
     </servlet>
 
     <servlet-mapping>
-        <servlet-name>EmployeeServlet</servlet-name>
-        <url-pattern>/employees</url-pattern>
+        <servlet-name>HelloServlet</servlet-name>
+        <url-pattern>/hello</url-pattern>
     </servlet-mapping>
 
 </web-app>

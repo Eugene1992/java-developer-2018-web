@@ -12,7 +12,8 @@
         <module>servlets</module>
         <module>sasha</module>
         <module>bohdan</module>
-        <module>servlets-crud</module>
+        <module>stepan</module>
+        <module>slavik_bv</module>
     </modules>
 
     <dependencies>
