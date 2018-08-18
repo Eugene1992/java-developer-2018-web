@@ -1,4 +1,4 @@
-package com.cbs.edu.servlets;
+package com.cbs.edu.servlets.controller;
 
 import com.cbs.edu.servlets.model.Employee;
 
