@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<web-app xmlns="http://java.sun.com/xml/ns/j2ee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
+         version="2.4">
+
+    <display-name>HelloWorld Application</display-name>
+    <description>
+        This is a simple web application with a source code organization
+        based on the recommendations of the Application Developer's Guide.
+    </description>
+
+    <servlet>
+        <servlet-name>ServletContextTest</servlet-name>
+        <servlet-class>com.cbs.edu.servlet_context.ServletContextTest</servlet-class>
+        <init-param>
+            <param-name>servlet-config-param-1</param-name>
+            <param-value>servlet-config-param-value-1</param-value>
+        </init-param>
+        <init-param>
+            <param-name>servlet-config-param-2</param-name>
+            <param-value>servlet-config-param-value-2</param-value>
+        </init-param>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>ServletContextTest</servlet-name>
+        <url-pattern>/servlet-context</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>CoockiesServletTest</servlet-name>
+        <servlet-class>com.cbs.edu.coockies.CoockiesServletTest</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>CoockiesServletTest</servlet-name>
+        <url-pattern>/coockies</url-pattern>
+    </servlet-mapping>
+
+    <context-param>
+        <param-name>servlet-context-param</param-name>
+        <param-value>servlet-context-param-value</param-value>
+    </context-param>
+
+    <listener>
+        <listener-class>com.cbs.edu.listeners.ServletContextListenerTest</listener-class>
+    </listener>
+</web-app>
