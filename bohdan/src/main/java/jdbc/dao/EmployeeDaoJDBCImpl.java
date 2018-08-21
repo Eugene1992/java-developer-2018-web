@@ -34,7 +34,7 @@ public class EmployeeDaoJDBCImpl implements EmployeeDao {
         try {
 
             preparedStatement = connection.prepareStatement("INSERT INTO employee_filled(first_name, last_name, age, salary, is_married, position) "
-                            + "VALUES(?, ?, ?, ?, ?, ?)");
+                    + "VALUES(?, ?, ?, ?, ?, ?)");
             //birthday - ?
             //Statement.RETURN_GENERATED_KEYS
 
@@ -291,6 +291,53 @@ public class EmployeeDaoJDBCImpl implements EmployeeDao {
         return result;
     }
 
+    @Override
+    public List<Employee> getEmployeesPage(int page, String order) {
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+
+        List<Employee> pageList = new ArrayList<>();
+
+        try {
+
+            switch (order) {
+                case "asc":
+                    preparedStatement = connection.prepareStatement("SELECT * FROM employee_filled ORDER BY id ASC OFFSET ? LIMIT 10");
+                    break;
+                case "desc":
+                    preparedStatement = connection.prepareStatement("SELECT * FROM employee_filled ORDER BY id DESC OFFSET ? LIMIT 10");
+                    break;
+
+                default:
+                    preparedStatement = connection.prepareStatement("SELECT * FROM employee_filled ORDER BY id OFFSET ? LIMIT 10");
+            }
+
+            preparedStatement.setInt(1, (page - 1) * 10);
+
+            resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                pageList.add(getEmployeeFromResultSet(resultSet));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (resultSet != null) {
+                    resultSet.close();
+                }
+                if (preparedStatement != null) {
+                    preparedStatement.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return pageList;
+    }
+
     private Employee getEmployeeFromResultSet(ResultSet resultSet) throws SQLException {
         return new Employee(
                 resultSet.getInt(ID),
@@ -325,6 +372,17 @@ public class EmployeeDaoJDBCImpl implements EmployeeDao {
             id = rs.getInt(1);
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (preparedStatement != null) {
+                    preparedStatement.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
 
         return id;

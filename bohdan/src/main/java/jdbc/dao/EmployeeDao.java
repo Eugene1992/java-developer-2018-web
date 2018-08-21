@@ -10,4 +10,6 @@ public interface EmployeeDao extends GenericDao<Integer, Employee> {
 
     List<Employee> getByPosition(String position);
 
+    List<Employee> getEmployeesPage(int page, String order);
+
 }
