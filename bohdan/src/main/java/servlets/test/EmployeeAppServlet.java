@@ -56,10 +56,11 @@ public class EmployeeAppServlet extends HttpServlet {
         if (action != null) {
             switch (action) {
                 case LOGOUT:
+                    req.getSession(false).invalidate();
                     req.getRequestDispatcher(LOGIN_JSP).forward(req, resp);
                     break;
                 case CREATE:
-                    req.setAttribute(UPDATED_EMPLOYEE, new Employee());
+                    req.removeAttribute(UPDATED_EMPLOYEE);
                     break;
                 case UPDATE:
                     String idUpd = req.getParameter(ID);
@@ -120,22 +121,27 @@ public class EmployeeAppServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String firstName = req.getParameter(FIRST_NAME);
-        String lastName = req.getParameter(LAST_NAME);
-        Integer age = Integer.valueOf(req.getParameter(AGE));
-        Integer salary = Integer.valueOf(req.getParameter(SALARY));
-        Boolean isMarried = !req.getParameter(IS_MARRIED).contains("un");
-        String position = req.getParameter(POSITION);
-
-        Employee emp = new Employee(firstName, lastName, age, salary, isMarried, position);
-
         String id = req.getParameter(ID);
 
-        if (!id.isEmpty()) {
-            emp.setId(Integer.valueOf(id));
-            crud.update(emp);
+        if (id == null) {
+            String firstName = req.getParameter(FIRST_NAME);
+            String lastName = req.getParameter(LAST_NAME);
+            Integer age = Integer.valueOf(req.getParameter(AGE));
+            Integer salary = Integer.valueOf(req.getParameter(SALARY));
+            Boolean isMarried = req.getParameter(IS_MARRIED) != null;
+            String position = req.getParameter(POSITION);
+            Employee employee = new Employee(firstName, lastName, age, salary, isMarried, position);
+            crud.create(employee);
         } else {
-            crud.create(emp);
+            String firstName = req.getParameter(FIRST_NAME + "Upd");
+            String lastName = req.getParameter(LAST_NAME + "Upd");
+            Integer age = Integer.valueOf(req.getParameter(AGE + "Upd"));
+            Integer salary = Integer.valueOf(req.getParameter(SALARY + "Upd"));
+            Boolean isMarried = req.getParameter(IS_MARRIED + "Upd") != null;
+            String position = req.getParameter(POSITION + "Upd");
+            Employee employee = new Employee(firstName, lastName, age, salary, isMarried, position);
+            employee.setId(Integer.parseInt(id));
+            crud.update(employee);
         }
 
         req.setAttribute(EMPLOYEES, crud.getAll());

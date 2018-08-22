@@ -25,6 +25,9 @@ public class AuthFilter implements Filter {
         if (isLoggedIn || isLoginRequest) {
             chain.doFilter(request, response);
         } else {
+            if (session != null) {
+                session.invalidate();
+            }
             response.sendRedirect("/login");
         }
     }
