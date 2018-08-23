@@ -16,13 +16,13 @@ import static servlets.test.EmployeeAppServlet.INDEX_JSP;
 
 public class LoginServlet extends HttpServlet {
 
-    public static final String LOGIN = "login";
-    public static final String PASSWORD = "password";
+    private static final String LOGIN = "login";
+    private static final String PASSWORD = "password";
     public static final String LOGIN_JSP = "/login.jsp";
     public static final String USER = "user";
-    public static final String ERR_MSG = "errMsg";
-    UserDao crud;
-    User user;
+    private static final String ERR_MSG = "errMsg";
+    private UserDao crud;
+    private User user;
 
     @Override
     public void init() throws ServletException {

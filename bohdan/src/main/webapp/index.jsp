@@ -53,20 +53,129 @@
         <div class="panel panel-primary">
             <div class="panel-heading">Employee CRUD App v2.0</div>
             <div class="panel-body">
-                <div class="col-lg-4 col-md-4">
-                    <br><br>
-                    <form action="/employees" method="get">
-                        <label for="search">Search:</label><br>
-                        <input class="form-control" type="text" placeholder="Enter name..." id="search" name="search">
-                        <button type="submit" class="btn btn-info btn-block"><span class="glyphicon glyphicon-search"
-                                                                                   aria-hidden="true"></span></button>
-                    </form>
-                    <br><br>
-                    <c:if test="${user.role ne 'user'}">
-                        <button type="button" class="btn btn-primary btn-block" data-toggle="modal"
-                                data-target="#createModal">
-                            Create new employee
-                        </button>
+                <div class="col-lg-3 col-md-3">
+                    <c:if test="${deletedEmployee eq null}">
+                        <c:if test="${updatedEmployee eq null}">
+                            <br><br>
+                            <form action="/employees" method="get">
+                                <label for="search">Search:</label><br>
+                                <input class="form-control" type="text" placeholder="Enter name..." id="search"
+                                       name="search">
+                                <button type="submit" class="btn btn-info btn-block"><span
+                                        class="glyphicon glyphicon-search"
+                                        aria-hidden="true"></span></button>
+                            </form>
+                            <br>
+                            <c:if test="${user.role ne 'user'}">
+                                <button type="button" class="btn btn-primary btn-block" data-toggle="modal"
+                                        data-target="#createModal">
+                                    Create new employee
+                                </button>
+                            </c:if>
+                        </c:if>
+                    </c:if>
+                    <c:if test="${deletedEmployee ne null}">
+                        <br>
+                        <div class="panel panel-danger">
+                            <div class="panel-heading">DELETE</div>
+                            <div class="panel-body">
+                                <form action="/employees" method="post">
+                                    <div class="form-group">
+                                        <input type="hidden" class="form-control" id="idDel" name="idDel"
+                                               value="${deletedEmployee.id}">
+                                    </div>
+                                    <h4>Do you want to delete selected employee?</h4>
+                                    <div class="form-group">
+                                        <a href="/employees?action=deleteCancel">
+                                            <button type="button"
+                                                    class="btn btn-danger form-control">
+                                                Cancel
+                                            </button>
+                                        </a>
+                                        <button type="submit"
+                                                class="btn btn-success form-control">
+                                            Submit
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </c:if>
+                    <c:if test="${updatedEmployee ne null}">
+                        <br>
+                        <div class="panel panel-info">
+                            <div class="panel-heading">UPDATE</div>
+                            <div class="panel-body">
+                                <form action="/employees" method="post">
+                                    <div class="form-group">
+                                        <input type="hidden" class="form-control" id="idUpd"
+                                               name="idUpd"
+                                               value="${updatedEmployee.id}">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="firstNameUpd">First name:</label>
+                                        <input type="text" class="form-control"
+                                               id="firstNameUpd"
+                                               name="firstNameUpd"
+                                               value="${updatedEmployee.firstName}">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="lastNameUpd">Last name:</label>
+                                        <input type="text" class="form-control" id="lastNameUpd"
+                                               name="lastNameUpd"
+                                               value="${updatedEmployee.lastName}">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="ageUpd">Age:</label>
+                                        <input type="number" class="form-control" id="ageUpd"
+                                               name="ageUpd"
+                                               value="${updatedEmployee.age}">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="salaryUpd">Salary:</label>
+                                        <input type="number" class="form-control" id="salaryUpd"
+                                               name="salaryUpd"
+                                               value="${updatedEmployee.salary}">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="isMarriedUpd">Is married:</label>
+                                        <c:choose>
+                                            <c:when test="${updatedEmployee.is_married() == true}">
+                                                <input type="checkbox" class="form-control"
+                                                       id="isMarriedUpd"
+                                                       name="isMarriedUpd"
+                                                       value="married"
+                                                       checked>
+                                            </c:when>
+                                            <c:when test="${updatedEmployee.is_married() == false}">
+                                                <input type="checkbox" class="form-control"
+                                                       id="isMarriedUpd"
+                                                       name="isMarriedUpd"
+                                                       value="married">
+                                            </c:when>
+                                        </c:choose>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="positionUpd">Position:</label>
+                                        <input type="text" class="form-control" id="positionUpd"
+                                               name="positionUpd"
+                                               value="${updatedEmployee.position}">
+                                    </div>
+                                    <div class="form-group">
+                                        <a href="/employees?action=updateCancel">
+                                            <button type="button"
+                                                    class="btn btn-danger form-control">
+                                                Cancel
+                                            </button>
+                                        </a>
+                                        <button type="submit"
+                                                class="btn btn-success form-control">
+                                            Submit
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
                     </c:if>
                 </div>
                 <!-- Modal -->
@@ -79,50 +188,53 @@
                                 <h3 class="modal-title">Employee:</h3>
                             </div>
                             <div class="modal-body">
-                                <form action="/employees" method="post">
-                                    <%--<div class="form-group">
-                                        <input type="hidden" class="form-control" id="id" name="id">
-                                    </div>--%>
-                                    <div class="form-group">
-                                        <label for="firstName">First name:</label>
-                                        <input type="text" class="form-control" id="firstName" name="firstName">
+                                <div class="panel panel-primary">
+                                    <div class="panel-heading">CREATE</div>
+                                    <div class="panel-body">
+                                        <form action="/employees" method="post">
+                                            <div class="form-group">
+                                                <input type="hidden" class="form-control" id="id" name="id" value="0">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="firstName">First name:</label>
+                                                <input type="text" class="form-control" id="firstName" name="firstName">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="lastName">Last name:</label>
+                                                <input type="text" class="form-control" id="lastName" name="lastName">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="age">Age:</label>
+                                                <input type="number" class="form-control" id="age" name="age">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="salary">Salary:</label>
+                                                <input type="number" class="form-control" id="salary" name="salary">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="isMarried">Is married:</label>
+                                                <input type="checkbox" class="form-control" id="isMarried"
+                                                       name="isMarried" value="true">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="position">Position:</label>
+                                                <input type="text" class="form-control" id="position" name="position">
+                                            </div>
+                                            <div class="form-group">
+                                                <button type="button" class="btn btn-danger form-control"
+                                                        data-dismiss="modal">
+                                                    Cancel
+                                                </button>
+                                                <button type="submit" class="btn btn-success form-control">Submit
+                                                </button>
+                                            </div>
+                                        </form>
                                     </div>
-                                    <div class="form-group">
-                                        <label for="lastName">Last name:</label>
-                                        <input type="text" class="form-control" id="lastName" name="lastName">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="age">Age:</label>
-                                        <input type="number" class="form-control" id="age" name="age">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="salary">Salary:</label>
-                                        <input type="number" class="form-control" id="salary" name="salary">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="isMarried">Is married:</label>
-                                        <input type="checkbox" class="form-control" id="isMarried"
-                                               name="isMarried" value="true">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="position">Position:</label>
-                                        <input type="text" class="form-control" id="position" name="position">
-                                    </div>
-                                    <div class="form-group">
-                                        <button type="button" class="btn btn-danger form-control" data-dismiss="modal">
-                                            Cancel
-                                        </button>
-                                        <a href="/employees?action=create">
-                                            <button type="submit" class="btn btn-success form-control">Submit
-                                            </button>
-                                        </a>
-                                    </div>
-                                </form>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-
                 <div class="col-lg-8 col-md-8">
                     <table class="table table-bordered">
                         <caption>Employees:</caption>
@@ -172,115 +284,12 @@
                                 <td>${employee.position}</td>
                                 <td style="text-align: right">
                                     <c:if test="${user.role eq 'admin'}">
-                                        <div>
-                                            <a data-toggle="modal" id="${employee}" href="#updateModal"
-                                               data-target="#updateModal">
-                                                <button type="button" class="btn info">
+                                        <a href="/employees?action=update&idUpd=${employee.id}">
+                                            <button type="button" class="btn info">
                                                     <span class="glyphicon glyphicon-refresh"
                                                           aria-hidden="true"></span>
-                                                </button>
-                                            </a>
-                                        </div>
-                                        <!-- Modal -->
-                                        <div id="updateModal" class="modal fade" tabindex="-1" role="dialog"
-                                             aria-labelledby="updateModalLabel"
-                                             aria-hidden="true">
-                                            <div class="modal-dialog" role="document">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <button type="button" class="close" data-dismiss="modal">
-                                                            &times;
-                                                        </button>
-                                                        <h3 class="modal-title">Employee:</h3>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        <form action="/employees" method="post">
-                                                            <div class="form-group">
-                                                                <input type="hidden" class="form-control" id="id"
-                                                                       name="id"
-                                                                       value="">
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <label for="firstNameUpd">First name:</label>
-                                                                <input type="text" class="form-control"
-                                                                       id="firstNameUpd"
-                                                                       name="firstName"
-                                                                       value="">
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <label for="lastNameUpd">Last name:</label>
-                                                                <input type="text" class="form-control" id="lastNameUpd"
-                                                                       name="lastName"
-                                                                       value="${employee.lastName}">
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <label for="ageUpd">Age:</label>
-                                                                <input type="number" class="form-control" id="ageUpd"
-                                                                       name="age"
-                                                                       value="${employee.age}">
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <label for="salaryUpd">Salary:</label>
-                                                                <input type="number" class="form-control" id="salaryUpd"
-                                                                       name="salary"
-                                                                       value="${employee.salary}">
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <label for="isMarriedUpd">Is married:</label>
-                                                                <c:choose>
-                                                                    <c:when test="${employee.is_married() == true}">
-                                                                        <input type="checkbox" class="form-control"
-                                                                               id="isMarriedUpd"
-                                                                               name="isMarried"
-                                                                               value="married"
-                                                                               checked>
-                                                                    </c:when>
-                                                                    <c:when test="${employee.is_married() == false}">
-                                                                        <input type="checkbox" class="form-control"
-                                                                               id="isMarriedUpd"
-                                                                               name="isMarried"
-                                                                               value="married">
-                                                                    </c:when>
-                                                                </c:choose>
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <label for="positionUpd">Position:</label>
-                                                                <input type="text" class="form-control" id="positionUpd"
-                                                                       name="position"
-                                                                       value="${employee.position}">
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <button type="button"
-                                                                        class="btn btn-danger form-control"
-                                                                        data-dismiss="modal">
-                                                                    Cancel
-                                                                </button>
-                                                                <a href="/employees?action=update&id=${employee.id}">
-                                                                    <button type="submit"
-                                                                            class="btn btn-success form-control">
-                                                                        Submit
-                                                                    </button>
-                                                                </a>
-                                                            </div>
-                                                        </form>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <script>
-
-                                            $('#updateModal').on('show.bs.modal', function(e) {
-                                                var $modal = $(this),
-                                                    employee = e.relatedTarget.id;
-                                                id = document.getElementById('id');
-                                                id.value = employee.id;
-                                                // $modal.find('input id value').html(employee.id);
-                                                firstNameUpd = document.getElementById('firstNameUpd');
-                                                firstNameUpd.value = employee.firstName;
-                                                // $modal.find('input firstNameUpd value').html(employee.firstName);
-                                            });
-
-                                        </script>
+                                            </button>
+                                        </a>
                                     </c:if>
                                     <c:if test="${user.role ne 'admin'}">
                                         <button class="btn btn-info disabled"><span
@@ -290,33 +299,12 @@
                                 </td>
                                 <td style="text-align: right">
                                     <c:if test="${user.role eq 'admin'}">
-                                        <button type="button" class="btn btn-danger" data-toggle="modal"
-                                                data-target="#deleteModal">
+                                        <a href="/employees?action=delete&idDel=${employee.id}">
+                                            <button type="button" class="btn btn-danger">
                                                     <span class="glyphicon glyphicon-trash"
                                                           aria-hidden="true"></span>
-                                        </button>
-                                        <!-- Modal -->
-                                        <div style="text-align: left" class="modal fade" id="deleteModal" tabindex="-1"
-                                             role="dialog"
-                                             aria-labelledby="deleteModalLabel"
-                                             aria-hidden="true">
-                                            <div class="modal-dialog" role="document">
-                                                <div class="modal-content">
-                                                    <div class="modal-body">
-                                                        <h4>Do you want to delete selected employee?</h4>
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-danger"
-                                                                data-dismiss="modal">Decline
-                                                        </button>
-                                                        <a href="/employees?action=delete&id=${employee.id}">
-                                                            <button type="submit" class="btn btn-success">Accept
-                                                            </button>
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
+                                            </button>
+                                        </a>
                                     </c:if>
                                     <c:if test="${user.role ne 'admin'}">
                                         <button class="btn btn-danger disabled"><span

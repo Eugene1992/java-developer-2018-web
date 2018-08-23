@@ -6,7 +6,12 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
+import static servlets.test.LoginServlet.LOGIN_JSP;
+import static servlets.test.LoginServlet.USER;
+
 public class AuthFilter implements Filter {
+
+    private static final String LOGIN = "/login";
 
     @Override
     public void init(FilterConfig filterConfig) {}
@@ -18,8 +23,8 @@ public class AuthFilter implements Filter {
 
         HttpSession session = request.getSession(false);
 
-        String loginURL = request.getContextPath() + "/login";
-        boolean isLoggedIn = session != null && session.getAttribute("user") != null;
+        String loginURL = request.getContextPath() + LOGIN;
+        boolean isLoggedIn = session != null && session.getAttribute(USER) != null;
         boolean isLoginRequest = request.getRequestURI().equals(loginURL);
 
         if (isLoggedIn || isLoginRequest) {
@@ -28,7 +33,7 @@ public class AuthFilter implements Filter {
             if (session != null) {
                 session.invalidate();
             }
-            response.sendRedirect("/login");
+            response.sendRedirect(LOGIN_JSP);
         }
     }
 
