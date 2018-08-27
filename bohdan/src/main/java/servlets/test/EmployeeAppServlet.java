@@ -3,7 +3,6 @@ package servlets.test;
 import jdbc.Employee;
 import jdbc.dao.EmployeeDao;
 import jdbc.dao.EmployeeDaoJDBCImpl;
-import jdbc.dao.User;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -12,10 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.Comparator;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static servlets.test.LoginServlet.LOGIN_JSP;
 
@@ -30,7 +26,6 @@ public class EmployeeAppServlet extends HttpServlet {
     private static final String PAGE = "page";
     private static final String SORT = "sort";
     private static final String LOGOUT = "logout";
-    private static final String CREATE = "create";
     private static final String FIRST_NAME = "firstName";
     private static final String LAST_NAME = "lastName";
     private static final String AGE = "age";

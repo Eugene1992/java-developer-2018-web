@@ -1,19 +1,21 @@
-package servlets.test;
+package servlets.filter;
 
 import javax.servlet.*;
+import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-import static servlets.test.LoginServlet.USER;
-
+@WebFilter(filterName = "AuthFilter", urlPatterns = "/*")
 public class AuthFilter implements Filter {
 
     private static final String LOGIN = "/login";
+    private static final String USER = "user";
 
     @Override
-    public void init(FilterConfig filterConfig) {}
+    public void init(FilterConfig filterConfig) {
+    }
 
     @Override
     public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain) throws IOException, ServletException {
@@ -37,5 +39,6 @@ public class AuthFilter implements Filter {
     }
 
     @Override
-    public void destroy() {}
+    public void destroy() {
+    }
 }
