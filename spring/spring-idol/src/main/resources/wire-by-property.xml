@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="saxophone" class="com.cbs.edu.hello_world_xml.property.Saxophone"/>
+
+    <!--    <bean id="kenny" class="com.cbs.edu.hello_world_xml.property.Instrumentalist">
+            <property name="song" value="Jingle Bells"/>
+            <property name="instrument" ref="saxophone"/>
+        </bean>-->
+
+    <bean id="kenny" class="com.cbs.edu.hello_world_xml.property.Instrumentalist"
+          p:song="Jingle Bells"
+          p:instrument-ref="saxophone">
+    </bean>
+</beans>
