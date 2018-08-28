@@ -6,6 +6,6 @@ public class HelloWorldDecoupledApp {
         MessageProvider messageProvider = decoupledMessageFactory.getMessageProvider();
         MessageRenderer messageRenderer = decoupledMessageFactory.getMessageRenderer();
         messageRenderer.setMessageProvider(messageProvider);
-        System.out.println(messageProvider.getMessage());
+        messageRenderer.render();
     }
 }
