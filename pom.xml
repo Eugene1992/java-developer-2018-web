@@ -19,6 +19,7 @@
         <module>servlets-3.0</module>
         <module>spring</module>
         <module>spring-annotations</module>
+        <module>spring-web-mvc</module>
     </modules>
 
     <dependencies>
