@@ -1,18 +1,32 @@
 package dao.utils;
 
-import dao.model.*;
+//import dao.model.*;
+
 import org.hibernate.SessionFactory;
-import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
+
+//import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
+//import org.springframework.context.annotation.Bean;
+
 
 public class HibernateSessionFactoryUtil {
     private static SessionFactory sessionFactory;
+
+    static {
+        try {
+            sessionFactory = new Configuration()
+                    .configure()
+                    .buildSessionFactory();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     private HibernateSessionFactoryUtil() {
     }
 
     public static SessionFactory getSessionFactory() {
-        if (sessionFactory == null) {
+        /*if (sessionFactory == null) {
             try {
                 Configuration configuration = new Configuration().configure();
                 configuration.addAnnotatedClass(User.class);
@@ -23,10 +37,12 @@ public class HibernateSessionFactoryUtil {
                 StandardServiceRegistryBuilder builder = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties());
                 sessionFactory = configuration.buildSessionFactory(builder.build());
 
+
+
             } catch (Exception e) {
                 System.out.println("Exception!:\n" + e);
             }
-        }
+        }*/
         return sessionFactory;
     }
 }

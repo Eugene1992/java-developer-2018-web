@@ -11,7 +11,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table
+@Table(name = "customers")
 public class Customer {
 
     @Id
@@ -21,12 +21,12 @@ public class Customer {
     @Column(unique = true)
     private String email;
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Order> orders;
+    private List<Order> customerOrders;
 
     public Customer(String name, String email, List<Order> orders) {
         this.name = name;
         this.email = email;
-        this.orders = orders;
+        this.customerOrders = orders;
     }
 
     public Customer(String name, String email) {
@@ -35,6 +35,6 @@ public class Customer {
     }
 
     public void addOrder(Order order) {
-        this.orders.add(order);
+        this.customerOrders.add(order);
     }
 }

@@ -12,6 +12,7 @@
         <module>servlets</module>
         <module>sasha</module>
         <module>bohdan</module>
+        <module>bohdan-store</module>
         <module>stepan</module>
         <module>slavik_bv</module>
         <module>servlets-adv</module>

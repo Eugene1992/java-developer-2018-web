@@ -1,17 +1,23 @@
 package dao.hibernate;
 
 import dao.model.Role;
-import dao.utils.HibernateSessionFactoryUtil;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
 import java.util.List;
 
+@NoArgsConstructor
+@AllArgsConstructor
 public class RoleDaoHibernateImpl implements GenericDao<Integer, Role> {
+
+    private SessionFactory sessionFactory;
 
     @Override
     public void create(Role role) {
-        Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession();
+        Session session = sessionFactory.openSession();
         Transaction tx = session.beginTransaction();
         session.save(role);
         tx.commit();
@@ -19,17 +25,17 @@ public class RoleDaoHibernateImpl implements GenericDao<Integer, Role> {
     }
 
     @Override
-    public void update(Role employee) {
+    public void update(Role role) {
 
     }
 
     @Override
-    public void delete(Role employee) {
+    public void delete(Role role) {
 
     }
 
     @Override
-    public Role get(Integer integer) {
+    public Role get(Integer id) {
         return null;
     }
 

@@ -36,6 +36,11 @@
             <artifactId>hibernate-hql-parser</artifactId>
             <version>1.5.0.Final</version>
         </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+            <version>4.3.10.RELEASE</version>
+        </dependency>
     </dependencies>
 
     <build>

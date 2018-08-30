@@ -1,16 +1,23 @@
 package dao.hibernate;
 
 import dao.model.Order;
-import dao.utils.HibernateSessionFactoryUtil;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
 import java.util.List;
 
+@NoArgsConstructor
+@AllArgsConstructor
 public class OrderDaoHibernateImpl implements OrderDao {
+
+    private SessionFactory sessionFactory;
+
     @Override
     public void create(Order order) {
-        Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession();
+        Session session = sessionFactory.openSession();
         Transaction tx = session.beginTransaction();
         session.save(order);
         tx.commit();
@@ -19,7 +26,7 @@ public class OrderDaoHibernateImpl implements OrderDao {
 
     @Override
     public void update(Order order) {
-        Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession();
+        Session session = sessionFactory.openSession();
         Transaction tx = session.beginTransaction();
         session.update(order);
         tx.commit();
@@ -28,7 +35,7 @@ public class OrderDaoHibernateImpl implements OrderDao {
 
     @Override
     public void delete(Order order) {
-        Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession();
+        Session session = sessionFactory.openSession();
         Transaction tx = session.beginTransaction();
         session.delete(order);
         tx.commit();
@@ -37,16 +44,16 @@ public class OrderDaoHibernateImpl implements OrderDao {
 
     @Override
     public Order get(Integer id) {
-        return HibernateSessionFactoryUtil.getSessionFactory().openSession().get(Order.class, id);
+        return sessionFactory.openSession().get(Order.class, id);
     }
 
     @Override
     public List<Order> getAll() {
-        return (List<Order>) HibernateSessionFactoryUtil.getSessionFactory().openSession().createQuery("FROM Order").list();
+        return (List<Order>) sessionFactory.openSession().createQuery("FROM Order").list();
     }
 
     @Override
     public List<Order> getOrdersByCustomerId(Integer id) {
-        return (List<Order>) HibernateSessionFactoryUtil.getSessionFactory().openSession().createQuery("FROM Order o INNER JOIN o.customer WHERE customer = " + id).list();
+        return (List<Order>) sessionFactory.openSession().createQuery("FROM Order o INNER JOIN o.customer WHERE customer = " + id).list();
     }
 }

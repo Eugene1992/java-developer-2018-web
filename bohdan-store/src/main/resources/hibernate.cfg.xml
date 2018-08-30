@@ -19,5 +19,7 @@
         <mapping class="dao.model.Customer"/>
         <mapping class="dao.model.Order"/>
         <mapping class="dao.model.Product"/>
+
+        <!--<mapping package="dao.model"/>-->
     </session-factory>
 </hibernate-configuration>

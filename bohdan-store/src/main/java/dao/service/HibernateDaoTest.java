@@ -1,20 +1,25 @@
 package dao.service;
 
-import dao.hibernate.RoleDaoHibernateImpl;
+import dao.hibernate.*;
 import dao.model.Product;
 import dao.model.Role;
 import dao.model.User;
+import dao.utils.WebAppConfig;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 public class HibernateDaoTest {
 
+    private static ApplicationContext context;
     private static RoleDaoHibernateImpl roleDao;
-    private static UserService userService;
-    private static ProductService productService;
+    private static UserDao userDao;
+    private static ProductDao productDao;
 
     static {
-        roleDao = new RoleDaoHibernateImpl();
-        userService = new UserService();
-        productService = new ProductService();
+        context = new AnnotationConfigApplicationContext(WebAppConfig.class);
+        roleDao = context.getBean("roleDao", RoleDaoHibernateImpl.class);
+        userDao = context.getBean("userDao", UserDaoHibernateImpl.class);
+        productDao = context.getBean("productDao", ProductDaoHibernateImpl.class);
     }
 
     private static void setRoles(Role... roles) {
@@ -25,13 +30,13 @@ public class HibernateDaoTest {
 
     private static void setUsers(User... users) {
         for (User user : users) {
-            userService.createUser(user);
+            userDao.create(user);
         }
     }
 
     private static void setProducts(Product... products) {
         for (Product product : products) {
-            productService.createProduct(product);
+            productDao.create(product);
         }
     }
 
