@@ -27,9 +27,9 @@ public class ProductService {
     }
 
     public void deleteProduct(Integer id) {
-        Product product = new Product();
-        product.setId(id);
-        productDao.delete(product);
+        //Product product = new Product();
+        //product.setId(id);
+        productDao.delete(id);
     }
 
     public List<Product> getAllProducts() {
@@ -41,7 +41,7 @@ public class ProductService {
     }
 
     public List<Product> getProductsByOrderId(Integer id) {
-        return productDao.getProductsByOrderId(id);
+        return productDao.getByOrderId(id);
     }
 
 }

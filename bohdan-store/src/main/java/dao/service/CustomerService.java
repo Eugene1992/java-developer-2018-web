@@ -1,16 +1,17 @@
 package dao.service;
 
 import dao.hibernate.CustomerDao;
-import dao.hibernate.CustomerDaoHibernateImpl;
 import dao.model.Customer;
+import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 
 import java.util.List;
 
+@NoArgsConstructor
 public class CustomerService {
 
-    private final CustomerDao customerDao;
+    @Autowired
+    private CustomerDao customerDao;
 
     @Autowired
     public CustomerService(CustomerDao customerDao) {
@@ -29,8 +30,8 @@ public class CustomerService {
         customerDao.update(customer);
     }
 
-    public void deleteCustomer(Customer customer) {
-        customerDao.delete(customer);
+    public void deleteCustomer(Integer id) {
+        customerDao.delete(id);
     }
 
     public List<Customer> getAllCustomers() {

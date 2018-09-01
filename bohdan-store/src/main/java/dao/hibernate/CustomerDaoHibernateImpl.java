@@ -1,7 +1,6 @@
 package dao.hibernate;
 
 import dao.model.Customer;
-import dao.model.Order;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import org.hibernate.Session;
@@ -38,22 +37,35 @@ public class CustomerDaoHibernateImpl implements CustomerDao {
     }
 
     @Override
-    public void delete(Customer customer) {
+    public void delete(Integer id) {
         Session session = sessionFactory.openSession();
         Transaction tx = session.beginTransaction();
-        session.delete(customer);
+        session.delete(id);
         tx.commit();
         session.close();
     }
 
     @Override
     public Customer get(Integer id) {
-        return sessionFactory.openSession().get(Customer.class, id);
+        Session session = sessionFactory.openSession();
+        Customer customer = session.get(Customer.class, id);
+        session.close();
+        return customer;
     }
 
     @Override
     public List<Customer> getAll() {
-        return (List<Customer>) sessionFactory.openSession().createQuery("SELECT c FROM Customer c").getResultList();
+        Session session = sessionFactory.openSession();
+        CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
+        CriteriaQuery<Customer> query = criteriaBuilder.createQuery(Customer.class);
+        Root<Customer> root = query.from(Customer.class);
+
+        query.select(root);
+
+        List<Customer> customers = session.createQuery(query).getResultList();
+        session.close();
+
+        return customers;
     }
 
     @Override
@@ -68,19 +80,4 @@ public class CustomerDaoHibernateImpl implements CustomerDao {
         return session.createQuery(query).getResultList().get(0);
     }
 
-    @Override
-    public List<Order> getOrdersByCustomerId(Integer id) {
-        /*Session session = sessionFactory.openSession();
-        CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
-        CriteriaQuery<Customer> query = criteriaBuilder.createQuery(Customer.class);
-        Root<Customer> root = query.from(Customer.class);
-
-
-        query.select(root).where(criteriaBuilder.equal(root.get("id"), id));
-
-        Customer customer = session.createQuery(query).getResultList().get(0);
-
-        return orders;*/
-        return null;
-    }
 }

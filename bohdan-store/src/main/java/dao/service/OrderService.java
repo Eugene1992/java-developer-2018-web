@@ -26,8 +26,8 @@ public class OrderService {
         orderDao.update(order);
     }
 
-    public void deleteOrder(Order order) {
-        orderDao.delete(order);
+    public void deleteOrder(Integer id) {
+        orderDao.delete(id);
     }
 
     public List<Order> getAllOrders() {
@@ -35,7 +35,7 @@ public class OrderService {
     }
 
     public List<Order> getOrdersByCustomerId(Integer id) {
-        return orderDao.getOrdersByCustomerId(id);
+        return orderDao.getByCustomerId(id);
     }
 
 }

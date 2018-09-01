@@ -21,5 +21,6 @@
         <mapping class="dao.model.Product"/>
 
         <!--<mapping package="dao.model"/>-->
+        <mapping package="dao.model"/>
     </session-factory>
 </hibernate-configuration>

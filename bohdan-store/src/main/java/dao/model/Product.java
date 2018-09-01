@@ -36,7 +36,7 @@ public class Product {
         this.image = image;
     }
 
-    public void addOrder(Order order) {
-        this.orders.add(order);
-    }
+    //public void addOrder(Order order) {
+    //this.orders.add(order);
+    //}
 }

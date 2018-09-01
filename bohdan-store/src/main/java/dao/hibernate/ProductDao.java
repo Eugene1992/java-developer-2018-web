@@ -8,6 +8,6 @@ public interface ProductDao extends GenericDao<Integer, Product> {
 
     List<Product> getByName(String name);
 
-    List<Product> getProductsByOrderId(Integer id);
+    List<Product> getByOrderId(Integer id);
 
 }

@@ -34,7 +34,7 @@
             <a class="navbar-brand">CBS</a>
         </div>
         <ul class="nav navbar-nav">
-            <li class="active"><a href="/store.jsp">Store</a></li>
+            <li class="active"><a href="/WEB-INF/views/store.jsp">Store</a></li>
             <c:if test="${user.role ne 'user'}">
                 <li><a href="/customers.jsp">Customers</a></li>
             </c:if>

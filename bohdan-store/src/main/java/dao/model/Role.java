@@ -30,7 +30,7 @@ public class Role {
         this.users = users;
     }
 
-    public void addUser(User user) {
-        this.users.add(user);
-    }
+    //public void addUser(User user) {
+    //this.users.add(user);
+    //}
 }

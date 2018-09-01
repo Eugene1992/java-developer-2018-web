@@ -34,7 +34,7 @@ public class Customer {
         this.email = email;
     }
 
-    public void addOrder(Order order) {
-        this.customerOrders.add(order);
-    }
+    //public void addOrder(Order order) {
+    //this.customerOrders.add(order);
+    //}
 }

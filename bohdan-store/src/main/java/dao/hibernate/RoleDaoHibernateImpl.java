@@ -30,7 +30,7 @@ public class RoleDaoHibernateImpl implements GenericDao<Integer, Role> {
     }
 
     @Override
-    public void delete(Role role) {
+    public void delete(Integer id) {
 
     }
 

@@ -37,22 +37,35 @@ public class ProductDaoHibernateImpl implements ProductDao {
     }
 
     @Override
-    public void delete(Product product) {
+    public void delete(Integer id) {
         Session session = sessionFactory.openSession();
         Transaction tx = session.beginTransaction();
-        session.delete(product);
+        session.delete(id);
         tx.commit();
         session.close();
     }
 
     @Override
     public Product get(Integer id) {
-        return sessionFactory.openSession().get(Product.class, id);
+        Session session = sessionFactory.openSession();
+        Product product = session.get(Product.class, id);
+        session.close();
+        return product;
     }
 
     @Override
     public List<Product> getAll() {
-        return (List<Product>) sessionFactory.openSession().createQuery("FROM Product").list();
+        Session session = sessionFactory.openSession();
+        CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
+        CriteriaQuery<Product> query = criteriaBuilder.createQuery(Product.class);
+        Root<Product> root = query.from(Product.class);
+
+        query.select(root);
+
+        List<Product> products = session.createQuery(query).getResultList();
+        session.close();
+
+        return products;
     }
 
     @Override
@@ -70,7 +83,8 @@ public class ProductDaoHibernateImpl implements ProductDao {
     }
 
     @Override
-    public List<Product> getProductsByOrderId(Integer id) {
+    public List<Product> getByOrderId(Integer id) {
+        //CriteriaQuery with join
         return (List<Product>) sessionFactory.openSession().createQuery("FROM Product p INNER JOIN p.orders WHERE order = " + id).list();
     }
 }
