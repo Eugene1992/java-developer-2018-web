@@ -1,5 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%--<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>--%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <html>
 <head>
     <meta charset="UTF-8">
@@ -25,13 +25,13 @@
             <li><a href="#">Page 2</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
-            <%--<sec:authorize access="isAuthenticated()">--%>
+            <sec:authorize access="isAuthenticated()">
             <li>
                 <a href="">
-                    <span class="glyphicon glyphicon-user"></span> Welcome, <%--<sec:authentication property="principal.username" />--%>!
+                    <span class="glyphicon glyphicon-user"></span> Welcome, <sec:authentication property="principal.username" />!
                 </a>
             </li>
-            <%--</sec:authorize>--%>
+            </sec:authorize>
             <li>
                 <a href="/logout">
                     <span class="glyphicon glyphicon-log-in"></span> Logout
