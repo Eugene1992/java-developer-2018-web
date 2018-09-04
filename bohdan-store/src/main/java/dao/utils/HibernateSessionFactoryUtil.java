@@ -1,6 +1,6 @@
 package dao.utils;
 
-//import dao.model.*;
+//import repository.model.*;
 
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
